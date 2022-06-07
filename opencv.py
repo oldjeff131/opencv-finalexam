@@ -19,7 +19,6 @@ class Window(QMainWindow):
     def setup_control(self):
         self.ui.loadingpicture.clicked.connect(self.open_file)
         self.ui.pictureTFtextButton.clicked.connect(self.pictureTftext)
-        self.ui.pushButton.clicked.connect(self.catchpicturetextbox)
 
     def open_file(self): #載入的圖片
         filename, _ = QFileDialog.getOpenFileName(self, 'Open Image', 'Image', '*.png *.jpg *.bmp')
@@ -73,7 +72,7 @@ class Window(QMainWindow):
         if self.ui.medianBlurcheckBox.isChecked():#中值濾波
             changeimg = self.ft.medianBlur(changeimg)
         cv.imshow("gray", changeimg)
-        text = pytesseract.image_to_string(changeimg, lang='eng')#繁體:chi_tra
+        text = pytesseract.image_to_string(changeimg, lang='chi_tra')#繁體:chi_tra 英文:eng
         self.ui.picturetext.setPlainText(text)
         print(text)
 

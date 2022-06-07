@@ -10,8 +10,8 @@ class pictureFilter():
         return cv.threshold(changeimg,value, 255, cv.THRESH_BINARY)
 
     def averaging(self,changeimg):
-
         return cv.blur(changeimg, (5, 5))
+        
     def Dilation(self,changeimg):
         global kernel
         return cv.dilate(changeimg,kernel,iterations = 2)
