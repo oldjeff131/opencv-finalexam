@@ -1,24 +1,25 @@
-import sys
-from PIL import Image
-import os
+import os ,UI,filter,sys
 import pytesseract
 import cv2 as cv
 import numpy as np
-import UI
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from pytesseract import Output
+from PIL import Image
 
 class Window(QMainWindow):
     def __init__(self,parent=None): #視窗建立
         super().__init__(parent)
         self.ui=UI.Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ft=filter.pictureFilter()
         self.setup_control()
     
     def setup_control(self):
         self.ui.loadingpicture.clicked.connect(self.open_file)
         self.ui.pictureTFtextButton.clicked.connect(self.pictureTftext)
-        self.ui.pushButton.clicked.connect(self.picturetextbox)
+        self.ui.pushButton.clicked.connect(self.catchpicturetextbox)
 
     def open_file(self): #載入的圖片
         filename, _ = QFileDialog.getOpenFileName(self, 'Open Image', 'Image', '*.png *.jpg *.bmp')
@@ -38,33 +39,41 @@ class Window(QMainWindow):
         self.qpixmap_height = self.qpixmap.height()
         self.ui.labelpicture.setPixmap(QPixmap.fromImage(self.qImg))
 
+    def catchpicturetextbox(self):
+        d = pytesseract.image_to_data(self.img, output_type=Output.DICT)
+        n_boxes = len(d['text'])
+        for i in range(n_boxes):
+            if int(d['conf'][i]) > 60:
+                (x, y, w, h) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
+                img = cv.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        cv.imshow('img', img)
+        cv.waitKey(0)
+
     def pictureTftext(self):
         pytesseract.pytesseract.tesseract_cmd = r'D:\Tesseract-OCR\tesseract.exe'
         changeimg=self.img
         if self.ui.graycheckBox.isChecked():
-            changeimg = cv.cvtColor(changeimg, cv.COLOR_BGR2GRAY)
+            changeimg = changeimg=self.ft.graycolor(changeimg)
         if self.ui.thresholdcheckBox.isChecked():
             value=int(self.ui.thresholdlineEdit.text())
             if value=='' or value>255 or value<1:
                 QMessageBox.information(None, '錯誤', '數值輸入錯誤')
             else:
-                ret, changeimg = cv.threshold(changeimg,value, 255, cv.THRESH_BINARY)
-        kernel=np.ones((3,3),np.uint8)
-        if self.ui.checkBox.isChecked():
-            changeimg=cv.dilate(changeimg,kernel,iterations = 2)
-        if self.ui.checkBox_2.isChecked():
-            changeimg=cv.erode(changeimg,kernel,iterations = 1)
-        if self.ui.checkBox_3.isChecked():
-            kernel = np.array([[-2, -1, 0],[-1, 1, 1],[0, 1, 2]])
-            changeimg = cv.filter2D(changeimg, -1, kernel)
-        if self.ui.checkBox_4.isChecked():
-            kernel = np.array([[-1, -1, -1],[-1, 8, -1],[-1, -1, -1]])
-            changeimg = cv.filter2D(changeimg, -1, kernel)
+                ret, changeimg = changeimg=self.ft.threshold(changeimg,value)
+        if self.ui.DilationcheckBox.isChecked():
+            changeimg=self.ft.Dilation(changeimg)
+        if self.ui.ErosioncheckBox.isChecked():
+            changeimg=self.ft.Erosion(changeimg)
+        if self.ui.averagingcheckBox.isChecked():#平均濾波器
+            changeimg= self.ft.averaging(changeimg)
+        if self.ui.GaussiacheckBox.isChecked():#高斯濾波
+            changeimg=self.ft.Gaussia(changeimg)
+        if self.ui.BilateralcheckBox.isChecked():
+             changeimg=self.ft.Bilateral(changeimg)
+        if self.ui.medianBlurcheckBox.isChecked():#中值濾波
+            changeimg = self.ft.medianBlur(changeimg)
         cv.imshow("gray", changeimg)
-        #ret,binary=cv.threshold(gray,250,255,cv.THRESH_BINARY)
-        #cv.imshow("binary", binary)
-        #end=cv.medianBlur(gray,5)
-        text = pytesseract.image_to_string(changeimg, lang='chi_tra')
+        text = pytesseract.image_to_string(changeimg, lang='eng')#繁體:chi_tra
         self.ui.picturetext.setPlainText(text)
         print(text)
 
