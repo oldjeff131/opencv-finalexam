@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1136</width>
-    <height>796</height>
+    <height>708</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,7 +56,7 @@
       <x>830</x>
       <y>320</y>
       <width>291</width>
-      <height>191</height>
+      <height>101</height>
      </rect>
     </property>
     <property name="title">
@@ -68,7 +68,7 @@
        <x>10</x>
        <y>10</y>
        <width>271</width>
-       <height>170</height>
+       <height>81</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -86,34 +86,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>文字周圍的框</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="ROIpushButton">
-        <property name="text">
-         <string>ROI</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bigpushButton_3">
-        <property name="text">
-         <string>放大</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="smallpushButton_4">
-        <property name="text">
-         <string>放小</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </widget>
@@ -121,7 +93,7 @@
     <property name="geometry">
      <rect>
       <x>830</x>
-      <y>510</y>
+      <y>420</y>
       <width>281</width>
       <height>251</height>
      </rect>
@@ -194,45 +166,6 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QCheckBox" name="EmbosscheckBox">
-          <property name="font">
-           <font>
-            <family>Adobe Devanagari</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>浮雕</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QCheckBox" name="CannycheckBox">
-          <property name="font">
-           <font>
-            <family>Adobe Devanagari</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>邊緣</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QCheckBox" name="GaussiacheckBox">
-          <property name="font">
-           <font>
-            <family>Adobe Devanagari</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>高斯</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
          <widget class="QCheckBox" name="averagingcheckBox">
           <property name="font">
            <font>
@@ -245,7 +178,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="2" column="1">
          <widget class="QCheckBox" name="medianBlurcheckBox">
           <property name="font">
            <font>
@@ -258,7 +191,20 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="3" column="0">
+         <widget class="QCheckBox" name="GaussiacheckBox">
+          <property name="font">
+           <font>
+            <family>Adobe Devanagari</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>高斯</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
          <widget class="QCheckBox" name="BilateralcheckBox">
           <property name="font">
            <font>
