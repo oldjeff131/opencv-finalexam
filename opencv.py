@@ -39,16 +39,6 @@ class Window(QMainWindow):
         self.qpixmap_height = self.qpixmap.height()
         self.ui.labelpicture.setPixmap(QPixmap.fromImage(self.qImg))
 
-    def catchpicturetextbox(self):
-        d = pytesseract.image_to_data(self.img, output_type=Output.DICT)
-        n_boxes = len(d['text'])
-        for i in range(n_boxes):
-            if int(d['conf'][i]) > 60:
-                (x, y, w, h) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
-                img = cv.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        cv.imshow('img', img)
-        cv.waitKey(0)
-
     def pictureTftext(self):
         pytesseract.pytesseract.tesseract_cmd = r'D:\Tesseract-OCR\tesseract.exe'
         changeimg=self.img
@@ -59,11 +49,11 @@ class Window(QMainWindow):
             if value=='' or value>255 or value<1:
                 QMessageBox.information(None, '錯誤', '數值輸入錯誤')
             else:
-                ret, changeimg = changeimg=self.ft.threshold(changeimg,value)
-        if self.ui.DilationcheckBox.isChecked():
-            changeimg=self.ft.Dilation(changeimg)
+                ret, changeimg =self.ft.threshold(changeimg,value)
         if self.ui.ErosioncheckBox.isChecked():
             changeimg=self.ft.Erosion(changeimg)
+        if self.ui.DilationcheckBox.isChecked():
+            changeimg=self.ft.Dilation(changeimg)
         if self.ui.averagingcheckBox.isChecked():#平均濾波器
             changeimg= self.ft.averaging(changeimg)
         if self.ui.GaussiacheckBox.isChecked():#高斯濾波
@@ -72,7 +62,7 @@ class Window(QMainWindow):
              changeimg=self.ft.Bilateral(changeimg)
         if self.ui.medianBlurcheckBox.isChecked():#中值濾波
             changeimg = self.ft.medianBlur(changeimg)
-        cv.imshow("gray", changeimg)
+        cv.imshow("end", changeimg)
         text = pytesseract.image_to_string(changeimg, lang='chi_tra')#繁體:chi_tra 英文:eng
         self.ui.picturetext.setPlainText(text)
         print(text)
