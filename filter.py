@@ -3,29 +3,29 @@ import numpy as np
 
 kernel=np.ones((3,3),np.uint8)
 class pictureFilter():
-    def graycolor(self,changeimg):
-        return cv.cvtColor(changeimg, cv.COLOR_BGR2GRAY)
+    def graycolor(self,changeing):
+        return cv.cvtColor(changeing, cv.COLOR_BGR2GRAY)
     
-    def threshold(self,changeimg,value):
-        return cv.threshold(changeimg,value, 255, cv.THRESH_BINARY)
+    def threshold(self,changeing,value):
+        return cv.threshold(changeing,value, 255, cv.THRESH_BINARY)
 
-    def averaging(self,changeimg):
-        return cv.blur(changeimg, (5, 5))
+    def averaging(self,changeing):
+        return cv.blur(changeing, (5, 5))
         
-    def Dilation(self,changeimg):
+    def Dilation(self,changeing):
         global kernel
-        return cv.dilate(changeimg,kernel,iterations = 2)
+        return cv.dilate(changeing,kernel,iterations = 1)
 
-    def Erosion(self,changeimg):
+    def Erosion(self,changeing):
         global kernel
-        return cv.erode(changeimg,kernel,iterations = 1)
+        return cv.erode(changeing,kernel,iterations = 1)
     
-    def Gaussia(self,changeimg):
-        return cv.GaussianBlur(changeimg,(11,11),-1)
+    def Gaussia(self,changeing):
+        return cv.GaussianBlur(changeing,(11,11),-1)
     
-    def Bilateral(self,changeimg):
-        img_Gaussia=cv.GaussianBlur(changeimg,(5,5),9)
+    def Bilateral(self,changeing):
+        img_Gaussia=cv.GaussianBlur(changeing,(5,5),9)
         return cv.bilateralFilter(img_Gaussia,10,10,10)
     
-    def medianBlur(self,changeimg):
-        return cv.medianBlur(changeimg, 7)
+    def medianBlur(self,changeing):
+        return cv.medianBlur(changeing, 5)
