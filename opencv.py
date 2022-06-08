@@ -19,6 +19,7 @@ class Window(QMainWindow):
     def setup_control(self):
         self.ui.loadingpicture.clicked.connect(self.open_file)
         self.ui.pictureTFtextButton.clicked.connect(self.pictureTftext)
+        self.ui.pushButton.clicked.connect(self.savetext)
 
     def open_file(self): #載入的圖片
         filename, _ = QFileDialog.getOpenFileName(self, 'Open Image', 'Image', '*.png *.jpg *.bmp')
@@ -76,8 +77,13 @@ class Window(QMainWindow):
         self.ui.picturetext.setPlainText(text)
         print(text)
 
-    def picturetextbox(self):
-        img =self.img
+    def savetext(self):
+        S__File =QFileDialog.getSaveFileName(None,'SaveTextFile','/', "Text Files (*.txt)")
+        Text = self.ui.picturetext.toPlainText()
+        if S__File[0]:
+            with open(S__File[0], 'w') as file:
+                file.write(Text)
+
 if __name__=="__main__":
     app=QApplication(sys.argv)
     win=Window()

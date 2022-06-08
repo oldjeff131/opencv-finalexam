@@ -68,7 +68,7 @@
        <x>10</x>
        <y>10</y>
        <width>271</width>
-       <height>81</height>
+       <height>83</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -83,6 +83,13 @@
        <widget class="QPushButton" name="pictureTFtextButton">
         <property name="text">
          <string>文字偵測</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>圖片資訊保存</string>
         </property>
        </widget>
       </item>

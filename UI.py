@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
         self.groupBox_2.setGeometry(QtCore.QRect(830, 320, 291, 101))
         self.groupBox_2.setObjectName("groupBox_2")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.groupBox_2)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 271, 81))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 271, 83))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -38,6 +38,9 @@ class Ui_MainWindow(object):
         self.pictureTFtextButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pictureTFtextButton.setObjectName("pictureTFtextButton")
         self.verticalLayout.addWidget(self.pictureTFtextButton)
+        self.pushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton.setObjectName("pushButton")
+        self.verticalLayout.addWidget(self.pushButton)
         self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_3.setGeometry(QtCore.QRect(830, 420, 281, 251))
         self.groupBox_3.setObjectName("groupBox_3")
@@ -141,6 +144,7 @@ class Ui_MainWindow(object):
         self.groupBox_2.setTitle(_translate("MainWindow", "工作按鈕"))
         self.loadingpicture.setText(_translate("MainWindow", "載入圖片"))
         self.pictureTFtextButton.setText(_translate("MainWindow", "文字偵測"))
+        self.pushButton.setText(_translate("MainWindow", "圖片資訊保存"))
         self.groupBox_3.setTitle(_translate("MainWindow", "影像處理"))
         self.graycheckBox.setText(_translate("MainWindow", "灰階化"))
         self.thresholdcheckBox.setText(_translate("MainWindow", "二質化"))
@@ -152,14 +156,4 @@ class Ui_MainWindow(object):
         self.BilateralcheckBox.setText(_translate("MainWindow", "雙向濾波"))
         self.label.setText(_translate("MainWindow", "二質化:\n"
 "(1~255)"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
 
